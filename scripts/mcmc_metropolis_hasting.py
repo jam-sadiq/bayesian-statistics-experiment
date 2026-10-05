@@ -248,3 +248,19 @@ for a, s, name in zip(ax, [H0_s, Mb_s], [r'$H_0$ [km/s/Mpc]', r'$M_b$']):
 plt.tight_layout()
 plt.savefig('marginalized_plots.png', dpi=120)
 plt.show()
+
+
+
+# Per-supernova estimates from the .dat data
+Mb_data = m_obs[is_cal] - ceph[is_cal]                       # calibrators: Mb = m_b - mu_Cepheid
+mu_hf   = m_obs[~is_cal] - np.median(Mb_s)                    # Hubble flow: mu = m_b - Mb
+H0_data = dL_times_H0[~is_cal] / 10**((mu_hf - 25) / 5)       # H0 = (dL * H0) / dL
+# check
+fig, ax = plt.subplots(1, 2, figsize=(11, 4))
+ax[0].hist(H0_data, bins=30, density=True, alpha=0.4, label='Data (per SN)')
+ax[0].hist(H0_s,    bins=40, density=True, alpha=0.7, label='Posterior')
+ax[0].set_xlabel(r'$H_0$ [km/s/Mpc]'); ax[0].legend()
+ax[1].hist(Mb_data, bins=20, density=True, alpha=0.4, label='Data (per SN)')
+ax[1].hist(Mb_s,    bins=40, density=True, alpha=0.7, label='Posterior')
+ax[1].set_xlabel(r'$M_b$'); ax[1].legend()
+plt.tight_layout(); plt.savefig('data_vs_posterior.png', dpi=120); plt.show()
