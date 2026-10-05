@@ -13,7 +13,7 @@ MCMC sampler written from scratch. Hamiltonian Monte Carlo comes next.
 ```
 bayesian-statistics-experiment/
 ├── scripts/
-│   └── h0_mcmc.py      # Metropolis-Hastings fit of H0 and Mb
+│   └── mcmc_metropolis_hasting.py      # Metropolis-Hastings fit of H0 and Mb
 ├── notebooks/          # Jupyter notebooks
 ├── data/               # Pantheon+SH0ES data (downloaded, not in git)
 ├── pyproject.toml      # project and dependencies (managed by uv)
@@ -60,13 +60,7 @@ cd ..
 Run the script:
 
 ```bash
-uv run python scripts/h0_mcmc.py
-```
-
-Or open Jupyter:
-
-```bash
-uv run jupyter lab
+uv run python scripts/mcmc_metropolis_hasting.py
 ```
 
 Add a new package:
