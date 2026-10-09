@@ -168,7 +168,7 @@ def log_posterior(theta, inv_cov, const=0.0):
 # ---------------------------------------------------------------
 # 5. Metropolis algorithm
 # ---------------------------------------------------------------
-def metropolis(theta0, inv_cov, n_steps=1000, step=(5, 2), seed=42):
+def metropolis(theta0, inv_cov, n_steps=1000, step=(0.02, 0.001), seed=42):
     rng = np.random.default_rng(seed)
     prop_cov = np.diag(np.array(step)**2)    # uncorrelated Gaussian proposal
 
@@ -210,7 +210,7 @@ ax[1].plot(chain[:, 1], lw=0.8, color='C1')
 ax[1].set_ylabel('Mb')
 ax[1].set_xlabel('Step')
 plt.tight_layout()
-plt.savefig('long_jumps_trace_plots.png', dpi=120)
+plt.savefig('small_jumps_trace_plots.png', dpi=120)
 plt.show()
 
 # ---------------------------------------------------------------
@@ -229,7 +229,7 @@ fig = corner.corner(
     bins=30, smooth=1.0,
     fill_contours=True, plot_datapoints=False,
 )
-plt.savefig('long_jumps_corner_plot.png', dpi=120)
+plt.savefig('small_jumps_corner_plot.png', dpi=120)
 plt.show()
 
 # ---------------------------------------------------------------
@@ -246,7 +246,7 @@ for a, s, name in zip(ax, [H0_s, Mb_s], [r'$H_0$ [km/s/Mpc]', r'$M_b$']):
     a.set_ylabel('Posterior density')
     a.set_title(f'{med:.3f}  (+{hi - med:.3f} / -{med - lo:.3f})')
 plt.tight_layout()
-plt.savefig('long_jumps_marginalized_plots.png', dpi=120)
+plt.savefig('small_jumps_marginalized_plots.png', dpi=120)
 plt.show()
 
 
@@ -263,4 +263,4 @@ ax[0].set_xlabel(r'$H_0$ [km/s/Mpc]'); ax[0].legend()
 ax[1].hist(Mb_data, bins=20, density=True, alpha=0.4, label='Data (per SN)')
 ax[1].hist(Mb_s,    bins=40, density=True, alpha=0.7, label='Posterior')
 ax[1].set_xlabel(r'$M_b$'); ax[1].legend()
-plt.tight_layout(); plt.savefig('long_jumps_data_vs_posterior.png', dpi=120); plt.show()
+plt.tight_layout(); plt.savefig('small_jumps_data_vs_posterior.png', dpi=120); plt.show()
